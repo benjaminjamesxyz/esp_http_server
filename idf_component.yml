@@ -1,4 +1,3 @@
-name: "esp_http_server"
 version: "1.0.0"
 description: "Custom lightweight HTTP server component optimized for embedded ESP32 systems using C++23"
 maintainers:
