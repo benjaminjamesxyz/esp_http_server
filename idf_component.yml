@@ -1,8 +1,8 @@
 version: "1.0.0"
 description: "Custom lightweight HTTP server component optimized for embedded ESP32 systems using C++23"
 maintainers:
-  - name: "Benjamin James"
-    email: "github@benjaminjames.xyz"
+  name: "Benjamin James"
+  email: "github@benjaminjames.xyz"
 
 dependencies:
   idf:
