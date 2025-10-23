@@ -1,0 +1,15 @@
+BasedOnStyle: Microsoft
+UseTab: Never
+IndentWidth: 8
+TabWidth: 8
+ColumnLimit: 160
+AccessModifierOffset: -4
+NamespaceIndentation: All
+BreakBeforeBraces: Attach
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
+AllowShortBlocksOnASingleLine: true
+IndentCaseLabels: false
+SortIncludes: false
+AlignConsecutiveMacros: AcrossEmptyLines
+AlignConsecutiveAssignments: Consecutive
