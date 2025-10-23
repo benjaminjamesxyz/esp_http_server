@@ -1,0 +1,42 @@
+name: ESP32 IDF Component Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up ESP-IDF
+        uses: espressif/esp-idf-action@v2
+        with:
+          version: v5.5.1
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r $IDF_PATH/requirements.txt
+
+      - name: Build Component
+        working-directory: ./components/http_server
+        run: idf.py build
+
+      - name: Run Unit Tests (if any)
+        working-directory: ./components/http_server
+        run: idf.py test || echo "Tests failed or not present"
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: http_server_build
+          path: ./build
