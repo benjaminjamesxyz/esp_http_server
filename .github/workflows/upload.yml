@@ -12,5 +12,5 @@ jobs:
         uses: espressif/upload-components-ci-action@v2
         with:
           components: "my_component: ." # component_name: directory
-          namespace: "espressif"
+          namespace: "benjaminjames"
           api_token: ${{ secrets.IDF_COMPONENT_API_TOKEN }}
