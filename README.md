@@ -23,7 +23,7 @@ Clone the repository into your ESP-IDF components directory:
 
 ```
 cd $IDF_PATH/components
-git clone https://github.com/benjaminjamesxyz/esp_http_server.git http_server
+git clone https://github.com/benjaminjamesxyz/esp_http_server.git
 ```
 
 Include `http_server` in your `CMakeLists.txt` components list.
