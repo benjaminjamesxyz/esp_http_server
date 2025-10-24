@@ -34,7 +34,7 @@ jobs:
           cppcheck src/*.cpp inc/*.hpp --enable=warning --error-exitcode=1 --force
 
       - name: esp-idf build library
-        uses: espressif/esp-idf-ci-action@main
+        uses: espressif/esp-idf-ci-action@1
         with:
           esp_idf_version: ${{ matrix.idf_ver }}
           target: ${{ matrix.idf_target }}
