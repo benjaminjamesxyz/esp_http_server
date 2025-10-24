@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <cstdio>
+#include <http_server.hpp>
 
-void app_main(void)
-{
-
+extern "C" void app_main(void) {
 }
