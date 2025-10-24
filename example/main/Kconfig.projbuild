@@ -1,0 +1,21 @@
+menu "Ultimate firmware"
+
+    config WIFI_SSID
+        string "WiFi SSID"
+        default "myssid"
+        help
+            SSID (network name) of the WiFi to be connected.
+	
+    config WIFI_PASSWORD
+        string "WiFi password"
+        default "mypassword"
+        help
+            Password for authenticating with the secure WiFi network.
+
+    config WIFI_MAX_RETRY
+        int "Maximum connection retry"
+        default 5
+        help
+            Maximum number of tries to connect after WiFi connection failure.
+
+endmenu
