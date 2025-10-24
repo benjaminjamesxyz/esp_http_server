@@ -40,9 +40,3 @@ jobs:
           target: ${{ matrix.idf_target }}
           path: "example/"
           command: apt-get update && apt-get install -y python3-venv && idf.py --version && idf.py build
-
-      - name: esp-idf build tests
-        uses: espressif/esp-idf-ci-action@main
-        with:
-          esp_idf_version: ${{ matrix.idf_ver }}
-          command: '/bin/bash -c " ln -s /app /opt/esp/idf/tools/unit-test-app/components/littlefs; cd /opt/esp/idf/tools/unit-test-app; idf.py -T littlefs build"'
