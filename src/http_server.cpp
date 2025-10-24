@@ -26,7 +26,7 @@ namespace http_server {
         bool HttpServer::add_route(std::string_view uri, HttpMethod method, HttpHandler handler) {
                 if (route_count >= MAX_ROUTES) {
                         ESP_LOGW(TAG, "Route limit reached (%d), cannot add: %.*s", MAX_ROUTES, int(uri.size()), uri.data());
-                        assert(false && "Too many HTTP routes");
+                        assert(false and "Too many HTTP routes");
                         return false;
                 }
                 routes[route_count]       = HttpRoute{uri, method, handler};
@@ -61,7 +61,7 @@ namespace http_server {
                         method            = HttpMethod::GET;
                         const char *start = req + 4;
                         const char *end   = static_cast<const char *>(std::memchr(start, ' ', len - 4));
-                        if (!end)
+                        if (not end)
                                 return false;
                         uri = std::string_view(start, end - start);
                         return true;
@@ -70,7 +70,7 @@ namespace http_server {
                         method            = HttpMethod::POST;
                         const char *start = req + 5;
                         const char *end   = static_cast<const char *>(std::memchr(start, ' ', len - 5));
-                        if (!end)
+                        if (not end)
                                 return false;
                         uri = std::string_view(start, end - start);
                         return true;
@@ -83,7 +83,7 @@ namespace http_server {
                         return nullptr;
                 uint32_t search_hash = fnv1a_hash(uri);
                 for (size_t i = 0; i < route_count; ++i) {
-                        if (route_hashes[i] == search_hash && routes[i].method == method && routes[i].uri == uri)
+                        if (route_hashes[i] == search_hash and routes[i].method == method and routes[i].uri == uri)
                                 return &routes[i];
                 }
                 return nullptr;
@@ -99,14 +99,14 @@ namespace http_server {
                 netbuf_data(inbuf, (void **)&buf, &buflen);
                 HttpMethod method;
                 std::string_view uri;
-                if (!parse_request_line(buf, buflen, method, uri)) {
+                if (not parse_request_line(buf, buflen, method, uri)) {
                         netbuf_delete(inbuf);
                         send_404(conn);
                         return ESP_FAIL;
                 }
                 HttpRoute *route = find_route(uri, method);
                 esp_err_t err    = ESP_FAIL;
-                if (route && route->handler) {
+                if (route and route->handler) {
                         err = route->handler(conn, std::string_view(buf, buflen));
                 } else {
                         send_404(conn);
@@ -124,7 +124,7 @@ namespace http_server {
 
         void HttpServer::run() {
                 listen_conn = netconn_new(NETCONN_TCP);
-                if (!listen_conn)
+                if (not listen_conn)
                         return; // handle error as needed
                 netconn_bind(listen_conn, nullptr, 80);
                 netconn_listen(listen_conn);
@@ -177,7 +177,7 @@ namespace http_server {
                 }
                 if (header_count >= MAX_HEADERS) {
                         ESP_LOGW(TAG, "Header limit reached (%d), cannot add header: %s", MAX_HEADERS, key);
-                        assert(false && "Too many HTTP headers");
+                        assert(false and "Too many HTTP headers");
                         return false;
                 }
                 headers[header_count].key   = key;
@@ -196,12 +196,12 @@ namespace http_server {
                 char buffer[BUFFER_SIZE];
                 size_t offset = 0;
                 int written   = snprintf(buffer + offset, BUFFER_SIZE - offset, "HTTP/1.1 %d %s\r\n", static_cast<int>(status_code), status_text());
-                if (written < 0 || static_cast<size_t>(written) >= BUFFER_SIZE - offset)
+                if (written < 0 or static_cast<size_t>(written) >= BUFFER_SIZE - offset)
                         return {};
                 offset += written;
                 for (size_t i = 0; i < header_count; ++i) {
                         written = snprintf(buffer + offset, BUFFER_SIZE - offset, "%s: %s\r\n", headers[i].key, headers[i].value.c_str());
-                        if (written < 0 || static_cast<size_t>(written) >= BUFFER_SIZE - offset)
+                        if (written < 0 or static_cast<size_t>(written) >= BUFFER_SIZE - offset)
                                 return {};
                         offset += written;
                 }
